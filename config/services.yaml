@@ -27,3 +27,7 @@ services:
     App\Twig\AppExtension:
         arguments:
             $iconVersion: "%env(ICON_VERSION)%"
+    App\Twig\FrontExtension:
+        arguments:
+            $nameApp: "%env(NAME_APP)%"
+            $iconVersion: "%env(ICON_VERSION)%"

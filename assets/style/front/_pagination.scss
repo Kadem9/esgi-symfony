@@ -1,0 +1,21 @@
+.pagination {
+    @apply flex gap-3 mt-4 justify-center;
+}
+.pagination .pagination-item {
+    height: 35px;
+    width: 35px;
+}
+.pagination .pagination-item a,
+.pagination .pagination-item span {
+    @apply rounded-sm p-1 flex items-center justify-center h-full transition-colors duration-300 dark:border-gray-600;
+}
+.pagination .pagination-item.active span {
+    @apply bg-primary-front text-white;
+}
+.pagination .pagination-item a:hover {
+    @apply bg-primary-front-80 text-white;
+}
+.pagination .pagination-item .icon {
+    width: 16px;
+    height: 16px;
+}

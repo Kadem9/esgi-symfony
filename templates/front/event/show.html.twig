@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="flex items-center justify-between">
+        <div class="head-title">
+            <h1 class="h1">{{ event.name }}</h1>
+            <p class="italic">Date : {{ event.date|date("d/m/Y") }}</p>
+        </div>
+        <a class="btn btn-primary" href="{{ path('app_event_home') }}">Retour</a>
+    </div>
+
+   <div class="container mt-2">
+       <div class="picture-box w-100">
+           {% if event.picture and event.generateImageByFixture %}
+               <img src="{{ event.picture }}" alt="{{ event.name }}" style="width: 100%; height: auto;">
+           {% elseif event.picture and event.generateImageByFixture == 0 %}
+               <img src="{{ vich_uploader_asset(event, 'pictureFile') |imagine_filter('miniature_event_front') }}" alt="{{ event.name }}" class="max-h-[200px]" style="width: 100%; height: auto;">
+           {% endif %}
+       </div>
+       <div class="event-description mt-2">
+           {{ event.description|raw }}
+       </div>
+
+       <button class="btn-danger mt-4 mb-2">Je souhaite m'inscrire !</button>
+   </div>
+{% endblock %}

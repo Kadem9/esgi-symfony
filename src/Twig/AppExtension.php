@@ -9,7 +9,7 @@ use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
-    public function __construct(private readonly string $iconVersion, private readonly RequestStack $requestStack, private readonly Security $security)
+    public function __construct(private readonly string $iconVersion, private readonly RequestStack $requestStack)
     {
     }
 
@@ -18,6 +18,7 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFunction('icon', [$this, 'icon'], ['is_safe' => ['html']]),
             new TwigFunction('current_route_class', [$this, 'currentRouteClass']),
+
         ];
     }
 
@@ -27,10 +28,10 @@ class AppExtension extends AbstractExtension
         if($small) $class[] = "icon-sm";
         $classStr = implode(" ", $class);
         return <<<HTML
-<svg class="{$classStr}">
-    <use xlink:href="/icons.svg?{$this->iconVersion}=1&logo#{$icon}"></use>
-</svg>
-HTML;
+        <svg class="{$classStr}">
+            <use xlink:href="/icons.svg?{$this->iconVersion}=1&logo#{$icon}"></use>
+        </svg>
+        HTML;
 
     }
 

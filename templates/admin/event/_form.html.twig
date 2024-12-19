@@ -1,0 +1,33 @@
+{{ form_start(form) }}
+
+
+<div class="grid grid-cols-2 gap-2">
+    {{ form_row(form.name) }}
+    {{ form_row(form.pictureFile) }}
+    {{ form_row(form.quantity) }}
+    {{ form_row(form.price) }}
+    {{ form_row(form.date) }}
+</div>
+
+<div class="grid grid-cols-1 mt-2">
+    {{ form_row(form.description) }}
+</div>
+
+<div class="grid grid-cols-1 mt-2">
+      {{ form_widget(form.online) }} 
+</div>
+
+<button class="btn-primary mt-3" type="submit">
+    Valider
+</button>
+{{ form_end(form) }}
+
+
+{% block javascripts_end %}
+    <script src="{{ asset('/ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replaceClass = 'ckeditor-text';
+        CKEDITOR.config.colorButton_colors = 'AB161B,1A2C45,FFFFFF,000000';
+        CKEDITOR.config.allowedContent = true;
+    </script>
+{% endblock %}

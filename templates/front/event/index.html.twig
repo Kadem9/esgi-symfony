@@ -1,0 +1,83 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="flex items-center justify-between">
+        <h1 class="h1">Les évènements à venir</h1>
+    </div>
+
+    <div class="card-body">
+        <div class="p-2">
+            <form action="{{ path('app_event_home') }}">
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="form-group">
+                        <label for="name">Nom de l'évènement</label>
+                        <input type="text" name="name" id="name" value="{{ formSearch.get('name') }}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date de l'évènement</label>
+                        <input type="date" name="date" id="date" value="{{ formSearch.get('date') }}" />
+                    </div>
+                </div>
+                <div class="flex justify-end mt-2 gap-1">
+                    <button type="submit" class="btn btn-primary btn-small">Rechercher</button>
+                    {% if formSearch.searching %}
+                        <a href="{{ path('app_event_home') }}" class="btn-secondary btn-small">Réinitialiser</a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="flex justify-between items-center mt-2">
+        <p>
+            {% if count == 0 %}
+                <small>Aucun résultat.</small>
+            {% elseif count == 1 %}
+                <small>{{ count }} résultat.</small>
+            {% else %}
+                <small>{{ count }} résultats.</small>
+            {% endif %}
+        </p>
+    </div>
+
+    <div class="grid grid-cols-4 gap-2">
+        {% for event in events %}
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="h4">
+                        {{ event.name }}
+                    </h2>
+                </div>
+                <div class="card-body">
+                    {% if event.picture and event.generateImageByFixture %}
+                        <img src="{{ event.picture }}" alt="{{ event.name }}" class="max-h-[200px] w-100">
+                        {% elseif event.picture and event.generateImageByFixture == 0 %}
+                        <img src="{{ vich_uploader_asset(event, 'pictureFile') |imagine_filter('miniature_event_front') }}" alt="{{ event.name }}" class="max-h-[200px]">
+                    {% endif %}
+                    <p>
+                        {{ event.description|u.truncate(50)|raw }}
+                    </p>
+                    <p>
+                        <strong>Date :</strong> {{ event.date|date('d/m/Y') }}
+                    </p>
+                    <p>
+                        <strong>Heure :</strong> {{ event.date|date('H:i') }}
+                    </p>
+                    <p>
+                        <strong>Prix :</strong> {{ event.price }} €
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ path('app_event_show', {id: event.id}) }}" class="btn btn-primary">Voir</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="flex justify-center mt-4">
+        <div class="pagination">
+            {{ knp_pagination_render(events) }}
+        </div>
+    </div>
+
+{% endblock %}

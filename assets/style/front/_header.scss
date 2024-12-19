@@ -1,0 +1,31 @@
+.top-header {
+  @apply p-5 bg-amber-500;
+  background: var(--background-alert-promo);
+  color: var(--white);
+}
+
+.header {
+  @apply flex justify-between mx-auto p-5 items-center max-md:gap-8;
+  background: var(--background-primary-front);
+
+  .logo {
+    @apply max-md:max-w-[200px];
+  }
+
+  .form-search {
+    @apply p-1 w-full max-w-lg rounded-full hidden sm:block bg-grey max-xl:max-w-md max-lg:max-w-sm max-md:min-w-[500px] max-md:max-w-full;
+  }
+  .input-search {
+    @apply w-full bg-transparent ml-5;
+  }
+  .button-search {
+    @apply p-3 bg-primary-front rounded-full ml-2 text-white;
+  }
+
+  .menu-icon {
+    @apply flex w-auto max-md:gap-3 max-sm:gap-4 max-sm:mr-2;
+    .menu-link {
+      @apply mx-4 text-text-front relative hover:text-primary-front max-md:mx-0;
+    }
+  }
+}

@@ -40,3 +40,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###

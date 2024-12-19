@@ -20,7 +20,14 @@ class UserFixtures extends Fixture
             ->setLastname('Dev')
             ->setEmail('kadem@dev.fr')
             ->setRoles(['ROLE_ADMIN'])
+            ->setAddress('3 Rue de Lyon')
+            ->setCity('Lyon')
+            ->setZip('69000')
+            ->setPhone('0606060606')
+            ->setGender('H')
+            ->setEnabled(true)
             ->setTheme('light');
+
         $user->setPassword($this->passwordHasher->hashPassword($user, 'kadem'));
         $manager->persist($user);
         $manager->flush();

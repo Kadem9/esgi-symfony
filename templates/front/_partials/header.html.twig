@@ -1,0 +1,23 @@
+<div class="top-header">
+    <p>PROMO : Profitez de 10% sur tous les évènements jusqu'au 10 Janvier 2025 !</p>
+</div>
+<header class="header mb-4">
+    <div class="header-container">
+        <a href="{{ path('app_home') }}">
+            <img src="{{ asset('logo2.png') }}" width="100" alt="{{ name_app() }}" class="logo">
+        </a>
+    </div>
+
+    <div class="menu-icon">
+        <a href="{{ path('app_home') }}" class="menu-link">
+            {{ front_icon('calendar') }}
+            Accueil
+        </a>
+        <a href="{{ path('app_event_home') }}" class="menu-link">
+            {{ front_icon('account') }}
+            Les évènements
+        </a>
+
+
+    </div>
+</header>

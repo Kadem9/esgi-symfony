@@ -15,6 +15,14 @@ export default {
     '.alert-close',
   ],
   theme: {
+    screens: {
+      'xs' : '500px',
+      'sm': '768px',
+      'md': '991px',
+      'lg': '1100px',
+      'xl': '1400px',
+      '2xl': '1600px',
+    },
     //colors
     extend: {
       colors: {
@@ -29,6 +37,11 @@ export default {
         'contrast-hover' : 'var(--contrast-hover)',
         'contrast-opacity' : 'var(--contrast-opacity)',
         'grey' : 'var(--grey)',
+        'primary-front' : 'var(--primary-front)',
+        'primary-front-hover': 'var(--primary-front-hover)',
+        'primary-front-80': 'var(--primary-front-80)',
+        'text-front': 'var(--text-front)',
+        'white' : 'var(--white)',
       },
       gridTemplateColumns: {
         '260-1' : '260px 1fr',

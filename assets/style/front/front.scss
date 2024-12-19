@@ -1,4 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: 'Red Hat Display', sans-serif;
+  @apply text-text-front;
+}
+
+:root {
+  --bg: #f8f8fb;
+  --bg-light: #ffffff;
+  --color: #444444;
+  --background-primary-front: #f59662;
+  --background-secondary-front: #1f1f1f;
+  --background-alert-promo: #d31515;
+  --primary-front: #232323;
+  --primary-front-hover: #d55954;
+  --primary-front-80: rgb(245 102 96 / 80%);
+  --text-front: #475b63;
+  --white: #fff;
+    --black: #000;
+  --grey: #e6e7e8;
+  --space: 4px;
+  --border: rgba(201, 16, 16, 0.05);
+  --shadow: rgb(56 65 74 / 15%);
+  --contrast: #1269d3;
+  --contrast-hover: rgba(18, 105, 211, 0.85);
+  --contrast-opacity: rgba(18, 105, 211, 0.10);
+}
+
+@import "icon";
+@import "header";
+@import "breadcrumb";
+@import "template";
+@import "typo";
+@import "category";
+@import "pagination";
+@import "form";
+@import "grid";
+@import "button";
+@import "card";
+@import "alert";
+@import "background";
+@import "badge";
