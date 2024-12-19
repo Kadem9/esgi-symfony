@@ -17,6 +17,21 @@
             {{ front_icon('account') }}
             Les évènements
         </a>
+        {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('app_logout') }}" class="menu-link">
+            {{ front_icon('logout') }}
+            Déconnexion
+        </a>
+        {% else %}
+            <a href="{{ path('app_login') }}" class="menu-link">
+                {{ front_icon('account') }}
+                Connexion
+            </a>
+        <a href="{{ path('app_register_index') }}" class="menu-link">
+            {{ front_icon('account') }}
+            Inscription
+        </a>
+        {% endif %}
 
 
     </div>

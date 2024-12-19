@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    site_url: "%env(resolve:SITE_URL)%"
 
 services:
     # default configuration for services in *this* file
@@ -31,3 +32,9 @@ services:
         arguments:
             $nameApp: "%env(NAME_APP)%"
             $iconVersion: "%env(ICON_VERSION)%"
+
+    App\EventListener\UserRegisteredListener:
+        arguments:
+            $emailFrom: "%env(EMAIL_FROM)%"
+        tags:
+            - { name: 'kernel.event_listener', event: 'user.registered', method: 'onUserRegistered' }
