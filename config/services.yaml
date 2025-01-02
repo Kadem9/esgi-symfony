@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     site_url: "%env(resolve:SITE_URL)%"
+    email_from: "%env(resolve:EMAIL_FROM)%"
 
 services:
     # default configuration for services in *this* file
@@ -32,9 +33,3 @@ services:
         arguments:
             $nameApp: "%env(NAME_APP)%"
             $iconVersion: "%env(ICON_VERSION)%"
-
-    App\EventListener\UserRegisteredListener:
-        arguments:
-            $emailFrom: "%env(EMAIL_FROM)%"
-        tags:
-            - { name: 'kernel.event_listener', event: 'user.registered', method: 'onUserRegistered' }

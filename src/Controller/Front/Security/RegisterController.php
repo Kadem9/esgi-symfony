@@ -8,23 +8,21 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use App\Event\UserRegisteredEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Mime\Email;
 
 #[Route('/register', name: 'app_register_')]
 class RegisterController extends AbstractController
 {
 
-    public function __construct(private readonly EntityManagerInterface $manager)
+    public function __construct(private readonly EntityManagerInterface $manager, private readonly EventDispatcherInterface $dispatcher)
     {
     }
 
     #[Route('/', name: 'index')]
-    public function index(Request $request, UserPasswordHasherInterface $passwordHasher, EventDispatcherInterface $eventDispatcher): Response
+    public function index(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(AppRegisterType::class, $user);
@@ -37,7 +35,7 @@ class RegisterController extends AbstractController
             $this->manager->persist($user);
             $this->manager->flush();
 
-            $eventDispatcher->dispatch(new UserRegisteredEvent($user), UserRegisteredEvent::NAME);
+            $this->dispatcher->dispatch(new UserRegisteredEvent($user));
 
             $this->addFlash('success', 'Votre compte a bien été créé');
             return $this->redirectToRoute('app_login');
@@ -46,20 +44,6 @@ class RegisterController extends AbstractController
         return $this->render('front/register/index.html.twig', [
             'form' => $form->createView(),
         ]);
-    }
-
-    #[Route('/test-envoi-email', name: 'test_email')]
-    public function testEmail(MailerInterface $mailer): Response
-    {
-        $email = new Email();
-        $email->from('contact@asmanissieux.fr');
-        $email->to('kademkamilg@gmail.com');
-        $email->subject('Bienvenue sur notre site !');
-        $email->text('Merci de vous être inscrit !');
-
-        $mailer->send($email);
-
-        return $this->redirectToRoute('app_home');
     }
 
 }
