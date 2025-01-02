@@ -11,11 +11,11 @@
                 <div class="grid grid-cols-3 gap-3">
                     <div class="form-group">
                         <label for="name">Nom de l'évènement</label>
-                        <input type="text" name="name" id="name" value="{{ formSearch.get('name') }}" />
+                        <input type="text" name="name" id="name" value="{{ formSearch.get('name') }}"/>
                     </div>
                     <div class="form-group">
                         <label for="date">Date de l'évènement</label>
-                        <input type="date" name="date" id="date" value="{{ formSearch.get('date') }}" />
+                        <input type="date" name="date" id="date" value="{{ formSearch.get('date') }}"/>
                     </div>
                 </div>
                 <div class="flex justify-end mt-2 gap-1">
@@ -51,8 +51,9 @@
                 <div class="card-body">
                     {% if event.picture and event.generateImageByFixture %}
                         <img src="{{ event.picture }}" alt="{{ event.name }}" class="max-h-[200px] w-100">
-                        {% elseif event.picture and event.generateImageByFixture == 0 %}
-                        <img src="{{ vich_uploader_asset(event, 'pictureFile') |imagine_filter('miniature_event_front') }}" alt="{{ event.name }}" class="max-h-[200px]">
+                    {% elseif event.picture and event.generateImageByFixture == 0 %}
+                        <img src="{{ vich_uploader_asset(event, 'pictureFile') |imagine_filter('miniature_event_front') }}"
+                             alt="{{ event.name }}" class="max-h-[200px]">
                     {% endif %}
                     <p>
                         {{ event.description|u.truncate(50)|raw }}
@@ -66,6 +67,7 @@
                     <p>
                         <strong>Prix :</strong> {{ event.price }} €
                     </p>
+                    <p class="text-red-600">Reste {{ event.remainingPlaces }} place(s) sur {{ event.quantity }}</p>
                 </div>
                 <div class="card-footer">
                     <a href="{{ path('app_event_show', {id: event.id}) }}" class="btn btn-primary">Voir</a>

@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="flex items-center justify-between">
+    <h1 class="h1">Mon compte</h1>
+</div>
+
+    <div class="grid grid-cols-3-1 gap-2 mt-2">
+        <div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="h4">Mes informations</h4>
+                </div>
+                <div class="card-body">
+                    {{ include('front/account/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="card">
+                <div class="card-header flex-col">
+                    <h4 class="h4">Navigation</h4>
+                </div>
+                <div class="card-body">
+                    <div class="card-body">
+                        {% include 'front/account/_partial/navigation.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

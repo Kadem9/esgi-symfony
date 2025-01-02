@@ -15,14 +15,15 @@ class EventFixtures extends Fixture
     {
         $faker = Faker\Factory::create("fr_FR");
 
-        // Ajout du fournisseur Picture
         $faker->addProvider(new \WW\Faker\Provider\Picture($faker));
 
         for ($i = 0; $i < self::NB_EVENTS; $i++) {
             $event = new Event();
             $event->setName($faker->sentence(3));
             $event->setDescription($faker->text(200));
-            $event->setDate($faker->dateTimeBetween('-1 month', 'now'));
+
+            $event->setDate($faker->dateTimeBetween('+7 days', '+6 months'));
+
             $event->setPrice($faker->randomFloat(2, 0, 100));
             $event->setOnline($faker->boolean(70));
             $event->setQuantity(100);

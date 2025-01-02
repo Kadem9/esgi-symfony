@@ -7,6 +7,61 @@
             <h2 class="h4">
                 {{ event.name }}
             </h2>
+            <a class="btn btn-primary" href="{{ path('admin_event_edit', {id: event.id}) }}">Modifier l'évènement</a>
+        </div>
+        <div class="card-body">
+            <div class="grid grid-cols-1">
+                <img src="{{ event.picture }}" alt="{{ event.name }}" class="max-h-[400px] w-[1200px] mb-2">
+                {{ event.description|raw }}
+            </div>
+            <div class="grid grid-cols-1">
+                <p class="mt-2">
+                    <span class="font-bold">Places disponibles :</span> {{ event.remainingPlaces }} / {{ event.quantity }}
+                </p>
+                <p class="mt-1">
+                    <span class="font-bold">Prix de la place :</span> {{ event.price }} €
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-header">
+            <h2 class="h4">
+                Liste des inscrits
+            </h2>
+        </div>
+        <div class="card-body">
+            <div class="grid grid-cols-1">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2">Nom</th>
+                            <th class="px-4 py-2">Prénom</th>
+                            <th class="px-4 py-2">Email</th>
+                            <th class="px-4 py-2">Date d'inscription</th>
+                            <th class="px-4 py-2">Statut du paiement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for subscription in event.orders %}
+                            <tr>
+                                <td class="border px-4 py-2">{{ subscription.user.lastname }}</td>
+                                <td class="border px-4 py-2">{{ subscription.user.firstname }}</td>
+                                <td class="border px-4 py-2">{{ subscription.user.email }}</td>
+                                <td class="border px-4 py-2">{{ subscription.createdAt|date('d/m/Y H:i') }}</td>
+                                <td class="border px-4 py-2">
+                                    {% if subscription.isPaid %}
+                                        {{ icon('valid') }}
+                                    {% else %}
+                                        {{ icon('invalid') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -19,8 +19,13 @@
        </div>
        <div class="event-description mt-2">
            {{ event.description|raw }}
+           <p>Prix : <span class="font-bold">{{ event.price }} €</span></p>
        </div>
+       {% if app.user %}
+           <a href="{{ path('app_order_pay', {'id': event.id}) }}" class="btn-primary mt-4 mb-2">Payer</a>
+       {% else %}
+           <a href="{{ path('app_login') }}" class="btn-danger">Se connecter</a>
+       {% endif %}
 
-       <button class="btn-danger mt-4 mb-2">Je souhaite m'inscrire !</button>
    </div>
 {% endblock %}

@@ -1,0 +1,34 @@
+.festival-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+}
+
+.festival-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.festival-content {
+    padding: 15px;
+}
+
+.festival-content h2 {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.festival-content a {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.festival-content a:hover {
+    text-decoration: underline;
+}

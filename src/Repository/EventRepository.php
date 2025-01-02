@@ -20,32 +20,57 @@ class EventRepository extends ServiceEntityRepository
 
     final public function querySearch(FormSearchHelper $formSearch, bool $count = false): QueryBuilder
     {
-        $qb = $this->createQueryBuilder("e");
+        $qb = $this->createQueryBuilder('e');
 
-        if($formSearch->getSortParams()) {
+        $subQuery = $this->getEntityManager()->createQueryBuilder()
+            ->select('COUNT(o.id)')
+            ->from('App\Entity\Order', 'o')
+            ->where('o.event = e');
+
+        if ($formSearch->getSortParams()) {
             $qb->orderBy($formSearch->getSortValue(), $formSearch->getSortDir());
-        }
-        else {
+        } else {
             $qb->orderBy('e.name', 'ASC');
         }
-        if($formSearch->get('name')) {
+
+        if ($formSearch->get('name')) {
             $qb
                 ->andWhere('e.name LIKE :name')
                 ->setParameter('name', "%{$formSearch->get('name')}%");
         }
-        if($formSearch->get('date')) {
+
+        if ($formSearch->get('date')) {
             $qb
                 ->andWhere('e.date = :date')
                 ->setParameter('date', $formSearch->get('date'));
         }
-        if($count) {
+
+        $qb->andWhere('e.online = true');
+
+        $qb->andWhere('e.date >= :today')
+            ->setParameter('today', new \DateTimeImmutable('today'));
+
+        $qb->andWhere(sprintf('e.quantity > (%s)', $subQuery->getDQL()));
+
+        if ($count) {
             $qb->select('COUNT(e.id)');
-        }
-        else {
+        } else {
             $qb->setMaxResults(20);
         }
+
         return $qb;
     }
+
+    public function findTopViewedEvents(int $limit = 3): array
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.clicks', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+
 
     //    /**
     //     * @return Event[] Returns an array of Event objects

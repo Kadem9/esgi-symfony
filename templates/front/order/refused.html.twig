@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="flex items-center justify-between">
+        <h1 class="h1 text-red-500">Paiement refusé</h1>
+    </div>
+
+    <div class="card-body">
+        <div class="p-2">
+            <p class="text-lg text-gray-700">
+                Votre paiement n'a pas été accepté. Nous vous invitons à réessayer ou à contacter notre support en cas de problème.
+            </p>
+            <p class="mt-2">
+                Assurez-vous que vos informations de paiement sont correctes ou utilisez une autre méthode de paiement.
+            </p>
+        </div>
+    </div>
+
+    <div class="mt-4 flex justify-center gap-2">
+        <a href="{{ path('app_event_show', {id: order.event.id}) }}" class="btn btn-primary">
+            Réessayer
+        </a>
+        <a href="{{ path('app_event_home') }}" class="btn btn-secondary">
+            Retour aux événements
+        </a>
+    </div>
+{% endblock %}

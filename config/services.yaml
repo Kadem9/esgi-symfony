@@ -6,6 +6,7 @@
 parameters:
     site_url: "%env(resolve:SITE_URL)%"
     email_from: "%env(resolve:EMAIL_FROM)%"
+    stripe_key: "%env(resolve:STRIPE_KEY)%"
 
 services:
     # default configuration for services in *this* file

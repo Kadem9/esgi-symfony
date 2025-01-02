@@ -1,5 +1,25 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
+    <festival-api></festival-api>
+
+    <div class="popular-events mt-4 mb-4">
+        <h2 class="h2">Les événements les plus regardés</h2>
+        <div class="grid grid-cols-3 gap-4 mt-4">
+            {% for event in popularEvents %}
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="h4">{{ event.name }}</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if event.picture %}
+                            <img src="{{ event.picture }}" alt="{{ event.name }}" class="max-h-[200px] w-full">
+                        {% endif %}
+                        <p class="mt-2">{{ event.description|u.truncate(100)|raw }}</p>
+                        <a href="{{ path('app_event_show', {id: event.id}) }}" class="btn btn-primary mt-2">Voir</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

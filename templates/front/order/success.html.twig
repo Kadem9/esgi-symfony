@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="flex items-center justify-between">
+        <h1 class="h1 text-green-500">Paiement réussi</h1>
+    </div>
+    <div class="card-body">
+        <p>Merci pour votre paiement ! Voici les détails de votre commande :</p>
+        <ul>
+            <li><strong>Événement :</strong> {{ order.event.name }}</li>
+            <li><strong>Prix :</strong> {{ order.amount }} €</li>
+            <li><strong>Date :</strong> {{ order.createdAt|date('d/m/Y H:i') }}</li>
+        </ul>
+        <a href="{{ path('app_event_home') }}" class="btn btn-primary mt-4">Retour aux événements</a>
+    </div>
+{% endblock %}

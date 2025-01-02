@@ -49,6 +49,7 @@ class EventController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $event->setGenerateImageByFixture(false);
             $this->entityManager->persist($event);
             $this->entityManager->flush();
 

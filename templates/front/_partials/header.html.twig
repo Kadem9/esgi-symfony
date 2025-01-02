@@ -18,6 +18,10 @@
             Les évènements
         </a>
         {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('app_account_index') }}" class="menu-link">
+                {{ front_icon('account') }}
+                Mon compte
+            </a>
         <a href="{{ path('app_logout') }}" class="menu-link">
             {{ front_icon('logout') }}
             Déconnexion

@@ -1,0 +1,58 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="flex items-center justify-between">
+        <h1 class="h1">Mon compte</h1>
+    </div>
+
+    <div class="grid grid-cols-3-1 gap-2 mt-2">
+        <div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="h4">Mes commandes</h4>
+                </div>
+                <div class="card-body">
+                    {% for order in orders %}
+                        <div class="card mt-2">
+                            <div class="card-header">
+                                <h4 class="h4">Commande n°{{ order.id }}</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>
+                                    <strong>Montant:</strong> {{ order.amount }} €
+                                </p>
+                                <p>
+                                    <strong>Date:</strong> {{ order.createdAt|date('d/m/Y') }}
+                                </p>
+                                <p>
+                                    <strong>Statut:</strong> {{ order.isPaid ? 'Payée' : 'Non payée' }}
+                                </p>
+                                <p>
+                                    <a href="#" class="btn btn-primary">Voir</a>
+                                </p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p>Aucune commande trouvée.</p>
+                    {% endfor %}
+
+                    <div class="pagination-controls mt-2">
+                        {{ knp_pagination_render(orders) }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="card">
+                <div class="card-header flex-col">
+                    <h4 class="h4">Navigation</h4>
+                </div>
+                <div class="card-body">
+                    {% include 'front/account/_partial/navigation.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

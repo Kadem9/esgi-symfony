@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -43,7 +45,7 @@ class Event
 
     #[Vich\UploadableField(mapping: 'picture_event', fileNameProperty: 'picture', mimeType: 'mime')]
     private ?File $pictureFile = null;
-    
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
@@ -53,9 +55,19 @@ class Event
     #[ORM\Column]
     private ?bool $generateImageByFixture = null;
 
+    /**
+     * @var Collection<int, Order>
+     */
+    #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'event')]
+    private Collection $orders;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $clicks = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -208,6 +220,62 @@ class Event
     {
         $this->generateImageByFixture = $generateImageByFixture;
 
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getEvent() === $this) {
+                $order->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRemainingPlaces(): int
+    {
+        $quantity = (int)$this->quantity;
+        $orders = $this->orders->count();
+
+        return $quantity - $orders;
+    }
+
+    public function getClicks(): ?string
+    {
+        return $this->clicks;
+    }
+
+    public function setClicks(?string $clicks): static
+    {
+        $this->clicks = $clicks;
+
+        return $this;
+    }
+
+    public function incrementClicks(): self
+    {
+        $this->clicks++;
         return $this;
     }
 }
